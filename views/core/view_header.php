@@ -11,7 +11,15 @@
             <?= $js ?>
         <?php endforeach; ?>
     <?php endif; ?>
+    <!-- React components -->
+    <?php if(isset($tmp_components)) : ?>
+        <?php foreach($tmp_components['js'] as $js) : ?>
+            <?= $js ?>
+        <?php endforeach; ?>
+    <?php endif; ?>
     
     <title>Document</title>
 </head>
 <body>
+    <div id="re-nav"></div>
+    <div id="re-main" ></div>

@@ -30,7 +30,7 @@ class UserController extends AbstractController
                 $_SESSION['login'] = $db_user;
                 session_regenerate_id(true);
                 
-                header('Location: home_user');
+                header('Location: home');
             }
             else
             {
@@ -77,5 +77,17 @@ class UserController extends AbstractController
     {
         unset($_SESSION['login']);
         header('Location: home');
+    }
+
+    public function check_login()
+    {
+        if(isset($_SESSION['login']))
+        {
+            return $_SESSION['login'];
+        }
+        else
+        {
+            return ['u_mail' => 'nope'];
+        }
     }
 }

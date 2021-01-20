@@ -1,5 +1,6 @@
 <?php
 
+use App\controllers\UserController;
 use App\core\Container;
 use App\core\Router;
 

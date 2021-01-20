@@ -7,6 +7,6 @@
         <a href="/signup">signup</a>
     <?php else : ?>
     Test
-    <?php var_dump($data); ?>
+    <?php var_dump($_SESSION['login']['u_mail']); ?>
     <?php endif; ?>
 </div>

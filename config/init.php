@@ -11,6 +11,7 @@ require_once __DIR__.'/routes.php';
 //+++ Header +++//
 $primary_header = new App\helpers\HeaderBuilder();
 $tmp_headers = $primary_header->get_headers();
+$tmp_components = $primary_header->get_components();
 
 //+++ Global Functions +++//
 
@@ -25,3 +26,4 @@ function date_from_db($string)
     $timestamp = strtotime($string);
     return date('d.m.Y', $timestamp);
 }
+
