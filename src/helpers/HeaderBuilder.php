@@ -19,7 +19,8 @@ class HeaderBuilder
                 'jquery'        => '<script src="/js/jquery-3.5.0.min.js"></script>',
                 'bootstrap'     => '<script src="/js/bootstrap.min.js"></script>',
                 'react_dev'     => '<script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>',
-                'react_dom_dev' => '<script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>'
+                'react_dom_dev' => '<script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>',
+                'babel_jsx'     => '<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>'
             ]
         ];
 

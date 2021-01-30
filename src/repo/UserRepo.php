@@ -18,8 +18,8 @@ class UserRepo
 
     public function get_user_by_email($db, $email)
     {
-        $model = UserRepo::get_model();
-        $table = UserRepo::get_table();
+        $model = 'App\\models\\UserModel';
+        $table = 'users';
         
         $qry = $db->prepare("SELECT * FROM `$table` WHERE $table.u_mail= ?");
         $qry->execute([$email]);

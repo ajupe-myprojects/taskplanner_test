@@ -14,14 +14,15 @@ class UserController extends AbstractController
         $this->view('view_login', []);
     }
 
-    public function login()
+    public function login($mail, $pw, $db_user)
     {
-        $inp = new InputHelper();
-        $post_data = $inp->get_all_inputs();
-        $usermail = $post_data['email'];
-        $password = $post_data['password'];
+        //$inp = new InputHelper();
+        //$post_data = $inp->get_all_inputs();
+        $usermail = $mail;
+        $password = $pw;
 
-        $db_user = UserRepo::get_user_by_email($this->db, $usermail);
+
+        //$db_user = UserRepo::get_user_by_email($this->db, $usermail);
 
         if($db_user !== false)
         {
@@ -30,18 +31,23 @@ class UserController extends AbstractController
                 $_SESSION['login'] = $db_user;
                 session_regenerate_id(true);
                 
-                header('Location: home');
+                $data['feedback'] = 'Login success';
+
+                return $data;
+                //header('Location: home');
             }
             else
             {
                 $data['feedback'] = 'Wrong password';
-                $this->view('view_login', $data);
+                return $data;
+                //$this->view('view_login', $data);
             }
         }
         else
         {
             $data['feedback'] = 'User not registered';
-            $this->view('view_login', $data);
+            return $data;
+            //$this->view('view_login', $data);
         }
 
     }
@@ -78,6 +84,14 @@ class UserController extends AbstractController
         unset($_SESSION['login']);
         header('Location: home');
     }
+    
+    public function react_logout()
+    {
+        unset($_SESSION['login']);
+
+        return 'okay';
+    }
+
 
     public function check_login()
     {
