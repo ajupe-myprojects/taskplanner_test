@@ -18,6 +18,7 @@ class Validator
         $this->checks = [
             'text' => '$this->test_small_text',
             'mail' => '$this->test_email',
+            'pw' => '$this->test_password',
         ];
     }
 
@@ -44,10 +45,23 @@ class Validator
             return '!ERROR!';
         }
     }
+
+    private function test_password($pw)
+    {
+        if(trim($pw) !== '')
+        {
+            return trim($pw);
+        }
+        else
+        {
+            return '!ERROR!';
+        }
+    }
+
     /**
      * The test method gets the name of the input and a test type (test for not empty is automatically included)
      */
-    public function validate(string $input, array $type)
+    public function validate(string $input, string $type)
     {
         foreach($this->checks as $keyword => $check)
         {
