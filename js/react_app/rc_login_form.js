@@ -26,18 +26,33 @@ class LoginForm extends React.Component
             this.setState({usermail: tmp_val});
             this.setState({umail_check: true});
         }
+        else
+        {
+            this.setState({usermail: ''});
+            this.setState({umail_check: false});
+        }
         
     }
 
     check_pw()
     {
         let tmp_val = $('#pw').val();
-        let tmp_test = /^[_A-z0-9]*((-|\s)*[_A-z0-9])*$/;
+
+        //pw test for testing purposes
+        let tmp_test = /^(?=.{6,})/;
+
+        //Strong pw test (prod)
+        //let temp_test = /^(?=.{8,})(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*])/;
 
         if(tmp_val !== '' && tmp_val.match(tmp_test))
         {
             this.setState({pw: tmp_val})
             this.setState({pw_check: true});
+        }
+        else
+        {
+            this.setState({pw: ''})
+            this.setState({pw_check: false});
         }
         
     }
@@ -58,10 +73,11 @@ class LoginForm extends React.Component
                 type: 'POST',
                 success: (json) =>
                 {
-                    if(json.result == 'Login success')
+                    console.log(json)
+                    /* if(json.result == 'Login success')
                     {
                         window.location.reload();
-                    }
+                    } */
                 },
                 error: (err) =>
                 {
