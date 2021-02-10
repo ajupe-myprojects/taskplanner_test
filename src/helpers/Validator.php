@@ -8,18 +8,12 @@ class Validator
 {
     private $data;
 
-    private $checks;
+    private $checks  = ['text', 'mail', 'pw'];
 
     public function __construct()
     {
         $input = new InputHelper();
         $this->data = $input->get_all_inputs();
-
-        $this->checks = [
-            'text' => '$this->test_small_text',
-            'mail' => '$this->test_email',
-            'pw' => '$this->test_password',
-        ];
     }
 
     private function test_small_text($text)
@@ -48,7 +42,10 @@ class Validator
 
     private function test_password($pw)
     {
-        if(trim($pw) !== '')
+        $weak = '/^(?=.{6,})(?=.*[A-Z])/';//test
+        $stronk = '/^(?=.{8,})(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*])/';//prod
+
+        if(trim($pw) !== '' && preg_match($weak, $pw))
         {
             return trim($pw);
         }
@@ -63,11 +60,23 @@ class Validator
      */
     public function validate(string $input, string $type)
     {
-        foreach($this->checks as $keyword => $check)
+        foreach($this->checks as $check)
         {
-            if($keyword === trim($type) && isset($this->data[trim($input)]))
+            if($check === trim($type) && isset($this->data[trim($input)]))
             {
-                return call_user_func($check, $this->data[trim($input)]);
+               switch($check) {
+                    case 'text':
+                        $tmp = $this->test_small_text($this->data[trim($input)]);
+                        break;
+                    case 'mail':
+                        $tmp = $this->test_email($this->data[trim($input)]);
+                        break;
+                    case 'pw':
+                        $tmp = $this->test_password($this->data[trim($input)]);
+                        break;
+               }
+
+               return $tmp;
             }
         }
 

@@ -4,6 +4,7 @@ use App\controllers\UserController;
 use App\core\Container;
 use App\core\Router;
 
+
 $container = new Container;
 $routes = [
     '/home' => ['Home', 'home', array()],

@@ -10,14 +10,14 @@ use App\repo\UserRepo;
 
 $feedback = [];
 $check = new Validator();
-$tmp_container = new Container;
+$tmp_container = new Container();
+
 
 $tmp_db = $tmp_container->get_pdo();
-$post_data = $data->get_all_inputs();
-
 
 $email = $check->validate('usermail', 'mail');
 $password = $check->validate('password', 'pw');
+
 
 if($email !== '!ERROR!' && $password !== '!ERROR!')
 {
