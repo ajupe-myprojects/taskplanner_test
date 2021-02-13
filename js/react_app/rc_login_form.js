@@ -9,9 +9,17 @@ class LoginForm extends React.Component
             usermail: '',
             umail_check: false,
             pw: '',
+            token: '',
             pw_check: false,
             form: new FormData(),
         }
+    }
+
+    async componentDidMount()
+    {
+        const response = await fetch('/api/check_login.php', {method: 'GET', mode: 'same-origin', headers: {'Content-Type': 'application/json'}});
+        const data = await response.json();
+        this.setState({token: data.crsf_token})
     }
 
     
@@ -62,6 +70,7 @@ class LoginForm extends React.Component
     {
         if(this.state.umail_check && this.state.pw_check)
         {
+            this.state.form.append('crsf-token', this.state.token);
             this.state.form.append('usermail', this.state.usermail);
             this.state.form.append('password', this.state.pw);
 

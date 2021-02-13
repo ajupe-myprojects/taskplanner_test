@@ -9,15 +9,16 @@ $test = UserController::check_login();
 if(isset($_SESSION['login']))
 {
     $feedback = [
-        'error' => false,
-        'mail' => $test['u_mail'],
+        'error'         => false,
+        'mail'          => $test['u_mail'],
+        'crsf_token'    => $_SESSION['token']
 
     ];
     echo json_encode($feedback);
 }
 else
 {
-    echo json_encode(['error' => true]);
+    echo json_encode(['error' => true, 'crsf_token' => $_SESSION['token']]);
 }
 
 

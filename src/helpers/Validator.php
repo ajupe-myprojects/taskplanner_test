@@ -40,6 +40,19 @@ class Validator
         }
     }
 
+    private function check_token()
+    {
+        if(isset(($this->data['token'])) && !empty($this->data['token']))
+        {
+            if (hash_equals($_SESSION['token'], $this->data['token']))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     private function test_password($pw)
     {
         $weak = '/^(?=.{6,})(?=.*[A-Z])/';//test
@@ -62,7 +75,7 @@ class Validator
     {
         foreach($this->checks as $check)
         {
-            if($check === trim($type) && isset($this->data[trim($input)]))
+            if($check === trim($type) && isset($this->data[trim($input)]) && $this->check_token())
             {
                switch($check) {
                     case 'text':
