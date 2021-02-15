@@ -8,7 +8,7 @@ class Validator
 {
     private $data;
 
-    private $checks  = ['text', 'mail', 'pw'];
+    private $checks  = ['text', 'mail', 'pw', 'tk'];
 
     public function __construct()
     {
@@ -42,9 +42,9 @@ class Validator
 
     private function check_token()
     {
-        if(isset(($this->data['token'])) && !empty($this->data['token']))
+        if(isset(($this->data['crsf-token'])) && !empty($this->data['crsf-token']))
         {
-            if (hash_equals($_SESSION['token'], $this->data['token']))
+            if (hash_equals($_SESSION['token'], $this->data['crsf-token']))
             {
                 return true;
             }
@@ -75,7 +75,7 @@ class Validator
     {
         foreach($this->checks as $check)
         {
-            if($check === trim($type) && isset($this->data[trim($input)]) && $this->check_token())
+            if($check === trim($type) && isset($this->data[trim($input)]))
             {
                switch($check) {
                     case 'text':
@@ -86,6 +86,9 @@ class Validator
                         break;
                     case 'pw':
                         $tmp = $this->test_password($this->data[trim($input)]);
+                        break;
+                    case 'tk':
+                        $tmp = $this->check_token();
                         break;
                }
 

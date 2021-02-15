@@ -17,9 +17,9 @@ $tmp_db = $tmp_container->get_pdo();
 
 $email = $check->validate('usermail', 'mail');
 $password = $check->validate('password', 'pw');
+$token = $check->validate('crsf-token', 'tk');
 
-
-if($email !== '!ERROR!' && $password !== '!ERROR!')
+if($email !== '!ERROR!' && $password !== '!ERROR!' && $token)
 {
     $db_user = UserRepo::get_user_by_email($tmp_db, $email);
     $result = UserController::login($email, $password, $db_user);
@@ -29,7 +29,7 @@ else
     $feedback['result']['feedback'] = 'Email or password are missing';
 }
 
-$feedback['result'] = $result;
+$feedback['result'] = [$email, $password, $token];
 
 echo json_encode($feedback);
 
