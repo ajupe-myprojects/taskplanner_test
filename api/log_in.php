@@ -29,7 +29,7 @@ else
     $feedback['result']['feedback'] = 'Email or password are missing';
 }
 
-$feedback['result'] = [$email, $password, $token];
+$feedback['result'] = $result;
 
 echo json_encode($feedback);
 

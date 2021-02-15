@@ -20,7 +20,7 @@ $post_data = $data->get_all_inputs();
 if($test)
 {
     $feedback['log'] = [
-        'error' => false,
+        'error' => 'logged',
         'mail' => $test['u_mail'],
     ];
     $tasks = HomeController::get_home_tasks($tmp_db, $test['u_id'] );
@@ -28,9 +28,8 @@ if($test)
 }
 else
 {
-    $feedback['log'] = [
+    $feedback['error'] = [
         'error' => true,
-        'mail' => 'none',
     ];
 }
 

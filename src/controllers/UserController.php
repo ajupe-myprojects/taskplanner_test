@@ -101,7 +101,7 @@ class UserController extends AbstractController
         }
         else
         {
-            return ['u_mail' => 'nope'];
+            return false;
         }
     }
 }

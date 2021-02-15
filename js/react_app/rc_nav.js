@@ -22,10 +22,10 @@ class NavBar extends React.Component
             success: (json) => 
             {
                 console.log(json)
-                if(json.result == 'okay')
+                /* if(json.result == 'okay')
                 {
                     window.location.reload();
-                }
+                } */
             }
         });
     }

@@ -14,18 +14,24 @@ class MainHome extends React.Component
 
     async componentDidMount()
     {
+        
         const response_home = await fetch('/api/get_home_data.php', {method: 'GET', mode: 'same-origin', headers: {'Content-Type': 'application/json'}});
         const data_home = await response_home.json();
-        this.setState({logged: data_home.log.error})
-        this.setState({tasks: data_home.data})
-        let list = this.state.tasks.data.unique.map(tk => {e('p',null, tk.t_description)});
-        console.log(list);
+        if('log' in data_home)
+        {
+            this.setState({logged: data_home.log.error})
+        }
+        if('data' in data_home)
+        {
+            this.setState({tasks: data_home.data})
+        }
+
+
     }
 
     render()
     {
-        
-        if(this.state.tasks !== null && this.state.tasks.error == 'none')
+        if(this.state.tasks !== null && this.state.logged == 'logged')
         {
             var list = new TaskList({tasks: this.state.tasks});
             console.log(list.get_list())
@@ -33,7 +39,7 @@ class MainHome extends React.Component
         }
         else
         {
-            var list_frame = e('div', {key: 'test'}, 'TTTTT')
+            var list_frame = e('div', {key: 'test', className: 'text-center text-warning'}, 'You are not logged in. Please log in!');
         }
         
         let frame = e(
