@@ -36,6 +36,20 @@ class TaskList extends React.Component
                     
                 },
                 e(
+                    'div',
+                    {
+                        className: 'btn-group mb-3',
+                        role: 'toolbar'
+                    },
+                    e(
+                        'button',
+                        {
+                            className: 'btn btn-success'
+                        },
+                        'Add Task'
+                    )
+                ),
+                e(
                     'ul',
                     {
                         className: 'list-group',
@@ -45,8 +59,20 @@ class TaskList extends React.Component
                                 className: 'list-group-item',
                                 key: tk.t_id
                             }, 
-                            tk.t_description
+                            e(
+                                'div',
+                                {
+                                    className: 'row'
+                                },
+                                e('div',{className: 'col-2'},tk.t_name),
+                                e('div',{className: 'col-4'},tk.t_description),
+                                e('div',{className: 'col-2'},tk.t_done_by),
+                                e('div',{className: 'col-2'},tk.t_created),
+                                e('div', {className: 'col-1'}, e('button', {className: 'btn btn-sm btn-warning'}, 'Done')),
+                                e('div', {className: 'col-1'}, e('button', {className: 'btn btn-sm btn-danger'}, 'Remove'))
+                            )
                             )),
+
                         key: 'u_list'
                     }
                 )
