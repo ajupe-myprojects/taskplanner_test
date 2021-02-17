@@ -8,7 +8,7 @@ class Validator
 {
     private $data;
 
-    private $checks  = ['text', 'mail', 'pw', 'tk'];
+    private $checks  = ['text', 'mail', 'pw', 'tk', 'date', 'num'];
 
     public function __construct()
     {
@@ -68,6 +68,33 @@ class Validator
         }
     }
 
+    private function test_date($date)
+    {
+        $test = '/^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[13-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$/' ;
+
+        if(trim($date) !== '')
+        {
+            $timestamp = strtotime($date);
+            return date('Y-m-d', $timestamp);
+        }
+        else
+        {
+            return '!ERROR!';
+        }
+    }
+
+    private function test_number($num)
+    {
+        if(intval($num) > 0)
+        {
+            return intval($num);
+        }
+        else
+        {
+            return '!ERROR!';
+        }
+    }
+
     /**
      * The test method gets the name of the input and a test type (test for not empty is automatically included)
      */
@@ -89,6 +116,12 @@ class Validator
                         break;
                     case 'tk':
                         $tmp = $this->check_token();
+                        break;
+                    case 'date':
+                        $tmp = $this->test_date($this->data[trim($input)]);
+                        break;
+                    case 'num':
+                        $tmp = $this->test_number($this->data[trim($input)]);
                         break;
                }
 

@@ -9,8 +9,16 @@ class MainHome extends React.Component
         this.state = {
             tasks: null,
             logged: true,
+
         }
+        this.handleStateChange = this.handleStateChange.bind(this);
     }
+
+    handleStateChange(data)
+    {
+        this.setState({tasks: data})
+    }
+
 
     async componentDidMount()
     {
@@ -33,7 +41,7 @@ class MainHome extends React.Component
     {
         if(this.state.tasks !== null && this.state.logged == 'logged')
         {
-            var list = new TaskList({tasks: this.state.tasks});
+            var list = new TaskList({tasks: this.state.tasks, handleStateChange: this.handleStateChange});
             console.log(list.get_list())
             var list_frame = list.get_list();
         }
