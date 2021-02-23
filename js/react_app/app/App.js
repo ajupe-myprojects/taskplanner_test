@@ -1,5 +1,5 @@
 'use strict';
-
+console.log(ROOT_DIR)
 
 ReactDOM.render(e(NavBar), document.querySelector('#re-nav'));
 

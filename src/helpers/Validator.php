@@ -131,4 +131,30 @@ class Validator
 
         return '!ERROR!';
     }
+
+    public function get_api_data()
+    {
+        $feedback = [];
+
+        foreach($this->data as $key => $value)
+        {
+            if($key === 'con' && $value !== '')
+            {
+                $feedback['con'] = $value . 'Controller';
+            }
+
+            if($key === 'method' && $value !== '')
+            {
+                $feedback['method'] = $value;
+            }
+
+            if($key === 'data' && !empty($value))
+            {
+                $feedback['data'] = $value;
+            }
+
+        }
+
+        return $feedback;
+    }
 }

@@ -45,6 +45,10 @@ class TaskController extends AbstractController
     {
         TaskRepo::remove_tasks($id, $db);
 
+        /* $stuff = TaskRepo::get_all_tasks($db);
+
+        echo json_encode(['data' => $stuff]); */
+
         if(true)
         {
             return ['error'=> 'Task removed'];

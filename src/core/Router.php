@@ -32,4 +32,18 @@ class Router
 
     }
 
+    public function use_api_route($key)
+    {
+        if(array_key_exists($key, $this->routes))
+        {
+            $tmp_route = $this->routes[$key];
+            $tmp_name = 'App\\controllers\\' . $tmp_route[0] . 'Controller';
+            $tmp_method = $tmp_route[1];
+            $tmp_con = new $tmp_name($this->database->get_pdo());
+
+            $tmp_name::$tmp_method($tmp_con);
+
+        }
+    }
+
 }

@@ -1,11 +1,11 @@
 <?php
 
-use App\controllers\UserController;
-use App\core\Container;
+
+
 use App\core\Router;
 
 
-$container = new Container;
+
 $routes = [
     '/home' => ['Home', 'home', array()],
     '/home_user' => ['Task', 'home_week', array()],
@@ -13,10 +13,14 @@ $routes = [
     '/login' => ['User', 'login', array()],
     '/signup' => ['User', 'signup', array()],
     '/logout' => ['User', 'logout', array()],
+
+];
+$routes_api = [
+    '/del_task' => ['task', 'delete_task', array()]
 ];
 
 
-function getRoute($routes, $container)
+function getRoute($routes, $routes_api, $container)
 {
     $path_info = $_SERVER['REQUEST_URI'] ?? '';
 
@@ -28,9 +32,9 @@ function getRoute($routes, $container)
         $rt->use_route($path_info);
 
     }
-    else
+    else if(isset($routes_api[$path_info]))
     {
-        $rt->use_route('/home');
-
+        $rt->use_api_route($path_info);
     }
+
 }

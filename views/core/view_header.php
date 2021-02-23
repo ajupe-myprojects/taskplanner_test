@@ -12,6 +12,9 @@
         <?php endforeach; ?>
     <?php endif; ?>
     <!-- React components -->
+    <script>
+        const ROOT_DIR = '<?php echo ROOTDIR ?>'
+    </script>
     <?php if(isset($tmp_components)) : ?>
         <?php foreach($tmp_components['js'] as $js) : ?>
             <?= $js ?>

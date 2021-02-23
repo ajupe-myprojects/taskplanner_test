@@ -8,8 +8,8 @@ if(session_status() === PHP_SESSION_NONE) session_start();
 
 gen_token();
 
-
-require_once __DIR__.'/routes.php';
+$container = new App\core\Container;
+//require_once __DIR__.'/routes.php';
 
 //+++ Header +++//
 $primary_header = new App\helpers\HeaderBuilder();

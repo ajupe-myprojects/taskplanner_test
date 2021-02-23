@@ -42,12 +42,13 @@ class MainHome extends React.Component
         if(this.state.tasks !== null && this.state.logged == 'logged')
         {
             var list = new TaskList({tasks: this.state.tasks, handleStateChange: this.handleStateChange});
-            console.log(list.get_list())
+
             var list_frame = list.get_list();
         }
         else
         {
             var list_frame = e('div', {key: 'test', className: 'text-center text-warning'}, 'You are not logged in. Please log in!');
+            console.log(ROOT_DIR)
         }
         
         let frame = e(
