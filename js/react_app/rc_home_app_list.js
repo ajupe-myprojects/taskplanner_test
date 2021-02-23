@@ -17,7 +17,7 @@ class TaskList extends React.Component
     }
 
 
-    handle_submit_form()
+    async handle_submit_form()
     {
         if(this.state.add_name !== '' && this.state.add_desc !== '' && this.state.add_date !== '')
         {
@@ -26,28 +26,20 @@ class TaskList extends React.Component
             this.state.add_form.append('t_done_by', this.state.add_date);
         }
 
-
-        $.ajax({
-            url: '/api/add_task.php',
-            data: this.state.add_form,
-            processData: false,
-            contentType: false,
-            dataType: 'json',
-            type: 'POST',
-            success: (json) => {
-
-                $('#task-add').toggleClass('d-none');
-                $('#t-name').val('');
-                $('#t-description').val('');
-                $('#t-done-by').val('');
-                this.props.handleStateChange(json)
-
-            },
-            error: (err) => {
-                console.log(err)
-            }
-
+        const response = await fetch('/api/add_task.php', {
+            method: 'POST',
+            body: this.state.add_form,
         });
+        const task_data = await response.json();
+
+        if(task_data !== '')
+        {
+            $('#task-add').toggleClass('d-none');
+            $('#t-name').val('');
+            $('#t-description').val('');
+            $('#t-done-by').val('');
+            this.props.handleStateChange(task_data)
+        }
 
     }
 

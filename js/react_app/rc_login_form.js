@@ -66,7 +66,7 @@ class LoginForm extends React.Component
     }
 
 
-    handle_form()
+    async handle_form()
     {
         if(this.state.umail_check && this.state.pw_check)
         {
@@ -74,25 +74,11 @@ class LoginForm extends React.Component
             this.state.form.append('usermail', this.state.usermail);
             this.state.form.append('password', this.state.pw);
 
-            $.ajax({
-                url: '/api/log_in.php',
-                data: this.state.form,
-                processData: false,
-                contentType: false,
-                type: 'POST',
-                success: (json) =>
-                {
-                    console.log(json)
-                    /* if(json.result == 'Login success')
-                    {
-                        window.location.reload();
-                    } */
-                },
-                error: (err) =>
-                {
-                    alert(err);
-                }
+            const response = await fetch('/api/log_in.php', {
+                method: 'POST',
+                body: this.state.form,
             });
+            const fb = await response.json();
 
         }
     }
